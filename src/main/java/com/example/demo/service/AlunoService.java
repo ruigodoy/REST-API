@@ -23,15 +23,21 @@ public class AlunoService {
     }
 
     public void criaAluno(Aluno aluno) {
-        alunoRepository.save(aluno);
+       alunoRepository.save(aluno);
     }
 
     public Optional<Aluno> atualizarAluno(Long id, Aluno aluno){
         return alunoRepository.findById(id).map(alunoBack -> {
             alunoBack.setName(aluno.getName());
             alunoBack.setClasse(aluno.getClasse());
-            Aluno alunoAtualizado = alunoRepository.save(alunoBack);
-            return alunoAtualizado;
+            return alunoRepository.save(alunoBack);
+        });
+    }
+
+    public Optional<Object> deletarAluno(Long id){
+        return alunoRepository.findById(id).map(alunoBack -> {
+            alunoRepository.deleteById(id);
+            return alunoBack;
         });
     }
 }
