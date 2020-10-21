@@ -33,4 +33,10 @@ public class AlunoController {
         alunoService.criaAluno(aluno);
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    @PutMapping(value="/{id}")
+    public ResponseEntity atualizarAluno(@PathVariable("id") Long id, @RequestBody Aluno aluno){
+
+        return ResponseEntity.ok().body(alunoService.atualizarAluno(id, aluno));
+    }
 }

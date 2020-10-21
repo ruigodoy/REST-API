@@ -5,7 +5,6 @@ import com.example.demo.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +24,14 @@ public class AlunoService {
 
     public void criaAluno(Aluno aluno) {
         alunoRepository.save(aluno);
+    }
+
+    public Optional<Aluno> atualizarAluno(Long id, Aluno aluno){
+        return alunoRepository.findById(id).map(alunoBack -> {
+            alunoBack.setName(aluno.getName());
+            alunoBack.setClasse(aluno.getClasse());
+            Aluno alunoAtualizado = alunoRepository.save(alunoBack);
+            return alunoAtualizado;
+        });
     }
 }
