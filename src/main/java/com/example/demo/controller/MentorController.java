@@ -27,12 +27,12 @@ public class MentorController {
         return ResponseEntity.ok(mentor);
     }
 
-    @PutMapping(value="/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Optional<Mentor>> atualizarMentor(@PathVariable("id") Long id, @RequestBody Mentor mentor){
         return ResponseEntity.ok().body(mentorService.atualizarMentor(id, mentor));
     }
 
-    @DeleteMapping(path={"/{id}"})
+    @DeleteMapping("/{id}")
     public ResponseEntity<Optional<Object>> deletarAluno(@PathVariable Long id){
         return ResponseEntity.ok().body(mentorService.deletarMentor(id));
     }

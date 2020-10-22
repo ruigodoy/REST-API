@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AlunoDTO;
 import com.example.demo.model.Aluno;
+import com.example.demo.model.Mentor;
 import com.example.demo.repository.AlunoRepository;
+import com.example.demo.repository.MentorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,11 @@ public class AlunoService {
     @Autowired
     AlunoRepository alunoRepository;
 
+    @Autowired
+    MentorRepository mentorRepository;
+
+
+
     public List<Aluno> getAlunos(){
         return alunoRepository.findAll();
     }
@@ -22,8 +30,17 @@ public class AlunoService {
         return alunoRepository.findById(id);
     }
 
-    public void criaAluno(Aluno aluno) {
-       alunoRepository.save(aluno);
+    public AlunoDTO criaAluno(AlunoDTO dto) {
+        Aluno aluno = new Aluno();
+        aluno.setName(dto.getName());
+        aluno.setClasse(dto.getClasse());
+
+        Mentor mentor = mentorRepository.getOne(dto.getMentor_id());
+
+        aluno.setMentor(mentor);
+        alunoRepository.save(aluno);
+
+        return dto;
     }
 
     public Optional<Aluno> atualizarAluno(Long id, Aluno aluno){

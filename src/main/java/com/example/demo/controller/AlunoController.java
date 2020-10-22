@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AlunoDTO;
 import com.example.demo.model.Aluno;
 import com.example.demo.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/aluno")
-public class AlunoController {
+public class AlunoController{
 
     @Autowired
     private AlunoService alunoService;
@@ -27,9 +28,8 @@ public class AlunoController {
     }
 
     @PostMapping
-    public ResponseEntity<Aluno> criaAluno(@RequestBody Aluno aluno){
-        alunoService.criaAluno(aluno);
-        return ResponseEntity.ok(aluno);
+    public ResponseEntity<AlunoDTO> criaAluno(@RequestBody AlunoDTO dto){
+        return ResponseEntity.ok().body(alunoService.criaAluno(dto));
     }
 
     @PutMapping(value="/{id}")

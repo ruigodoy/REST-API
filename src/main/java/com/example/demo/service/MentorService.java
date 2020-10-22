@@ -31,10 +31,9 @@ public class MentorService {
     }
 
     public Optional<Object> deletarMentor(Long id){
-        return mentorRepository.findById(id).map(mentorBack -> {
+        return mentorRepository.findById(id).map(mentorDelete -> {
             mentorRepository.deleteById(id);
-            return mentorBack;
+            return mentorDelete;
         });
     }
-
 }
