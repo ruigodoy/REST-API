@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class AlunoDTO {
-
     private Long mentor_id;
-
     private String name;
-
     private String classe;
-
 }
