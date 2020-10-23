@@ -18,23 +18,23 @@ public class AlunoController{
     private AlunoService alunoService;
 
     @GetMapping
-    public List<Aluno> getAlunos(){
+    public List<AlunoDTO> getAlunos(){
         return alunoService.getAlunos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Aluno>> getAluno(@PathVariable Long id){
-        return ResponseEntity.ok(alunoService.getAlunoByIndex(id));
+    public ResponseEntity<AlunoDTO> getAluno(@PathVariable Long id){
+        return alunoService.getAlunoByIndex(id).map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<AlunoDTO> criaAluno(@RequestBody AlunoDTO dto){
-        return ResponseEntity.ok().body(alunoService.criaAluno(dto));
+    public ResponseEntity<AlunoDTO> criaAluno(@RequestBody AlunoDTO alunoDTO){
+        return alunoService.criaAluno(alunoDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<Optional<Aluno>> atualizarAluno(@PathVariable("id") Long id, @RequestBody Aluno aluno){
-        return ResponseEntity.ok().body(alunoService.atualizarAluno(id, aluno));
+    public ResponseEntity<AlunoDTO> atualizarAluno(@PathVariable("id") Long id, @RequestBody AlunoDTO alunoDTO){
+        return ResponseEntity.ok().body(alunoService.atualizarAluno(id, alunoDTO));
     }
 
     @DeleteMapping(path={"/{id}"})

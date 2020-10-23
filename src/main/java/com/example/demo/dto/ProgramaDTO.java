@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class AlunoDTO {
+public class ProgramaDTO {
     private Long id;
-    private Long programa_id;
-    private String name;
-    private String classe;
+    private Integer ano_inicio;
+    private Integer ano_fim;
+    private String descricao;
 }

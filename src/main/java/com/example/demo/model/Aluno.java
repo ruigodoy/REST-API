@@ -1,16 +1,13 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Data
 
 public class Aluno  {
 
@@ -18,11 +15,11 @@ public class Aluno  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mentor_id")
-    private Mentor mentor;
+    @JoinColumn(name = "programa_id")
+    private Programa programa;
 
     private String name;
     private String classe;
+
 }
