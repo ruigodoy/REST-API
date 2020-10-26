@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.MentorDTO;
 import com.example.demo.model.Mentor;
 import com.example.demo.service.MentorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,8 @@ public class MentorController {
     }
 
     @PostMapping
-    public ResponseEntity<Mentor> criaMentor(@RequestBody Mentor mentor){
-        mentorService.criaMentor(mentor);
-        return ResponseEntity.ok(mentor);
+    public ResponseEntity<MentorDTO> criaMentor(@RequestBody MentorDTO mentorDTO){
+        return mentorService.criaMentor(mentorDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

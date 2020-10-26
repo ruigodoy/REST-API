@@ -14,10 +14,11 @@ import javax.persistence.Id;
 @Entity
 @Data
 
-public class Materia {
+public class Mes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String nome;
+    private String mes;
 }

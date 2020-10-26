@@ -1,7 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.AlunoDTO;
+import com.example.demo.dto.MentorDTO;
 import com.example.demo.model.Mentor;
 import com.example.demo.repository.MentorRepository;
+import com.example.demo.service.mapper.AlunoMapper;
+import com.example.demo.service.mapper.MentorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +24,16 @@ public class MentorService {
         return mentorRepository.findAll();
     }
 
-    public void criaMentor(Mentor mentor){
-        mentorRepository.save(mentor);
+    public Optional<MentorDTO> getAlunoByIndex(Long id) {
+        return mentorRepository.findById(id).map(MentorMapper::toMentorDTO);
+    }
+
+    public Optional<MentorDTO> criaMentor(MentorDTO mentorDTO){
+        if(mentorDTO != null){
+            return Optional.of(MentorMapper.toMentorDTO(mentorRepository.save(MentorMapper.toMentor(mentorDTO))));
+        }else{
+            return Optional.empty();
+        }
     }
 
     public Optional<Mentor> atualizarMentor(Long id, Mentor mentor){

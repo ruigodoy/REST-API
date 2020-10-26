@@ -47,7 +47,6 @@ public class AlunoService {
 
     public Optional<AlunoDTO> atualizarAluno(Long id, AlunoDTO alunoDTO) {
         alunoDTO.setId(id);
-
         if (getAlunoByIndex(id).isPresent() && (programaService.getProgramaByIndex(alunoDTO.getPrograma_id()).isPresent() || alunoDTO.getPrograma_id() == null)) {
             return Optional.of(AlunoMapper.toAlunoDTO(alunoRepository.save(AlunoMapper.toAluno(alunoDTO))));
         } else {
@@ -57,7 +56,6 @@ public class AlunoService {
 
     public Optional<AlunoDTO> deletarAluno(Long id) {
         Optional<Aluno> aluno = alunoRepository.findById(id);
-
         if (aluno.isPresent()) {
             aluno.get().setActive(0);
             mentoriaService.setActiveAluno(0, id);
@@ -69,7 +67,6 @@ public class AlunoService {
 
     public Optional<AlunoDTO> ativarAluno(Long id) {
         Optional<Aluno> aluno = alunoRepository.findById(id);
-
         if (aluno.isPresent()) {
             aluno.get().setActive(1);
             mentoriaService.setActiveAluno(1, id);

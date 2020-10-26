@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,22 +28,12 @@ public class MentoriaService {
     @Autowired
     AlunoRepository alunoRepository;
 
-    public List<MentoriaDTO> getMentorias() {
-        List<Mentoria> all = mentoriaRepository.findAll();
-        List<MentoriaDTO> mentoriaDTOS = new ArrayList<>();
-
-        all.forEach(mentoria -> {
-            MentoriaDTO mentoriaDTO = new MentoriaDTO();
-            mentoriaDTO.setMentor_id(mentoria.getMentor().getId());
-            mentoriaDTO.setAluno_id(mentoria.getAluno().getId());
-            mentoriaDTOS.add(mentoriaDTO);
-        });
-
-        return mentoriaDTOS;
+    public List<Mentoria> getMentorias() {
+        return mentoriaRepository.findAll();
     }
 
-    public MentoriaDTO criarMentoria(MentoriaDTO dto) {
-        Mentoria mentoria = new Mentoria();
+    public Optional<MentoriaDTO> criarMentoria(MentoriaDTO mentoriaDTO) {
+        /*Mentoria mentoria = new Mentoria();
 
         Mentor mentor = mentorRepository.findById(dto.getMentor_id()).orElse(null);
         Aluno aluno = alunoRepository.findById(dto.getAluno_id()).orElse(null);
@@ -52,7 +43,10 @@ public class MentoriaService {
 
         mentoriaRepository.save(mentoria);
 
-        return dto;
+        return dto;*/
+
+
+        return null;
     }
 
     public void setActiveAluno(Integer active, Long id) {
