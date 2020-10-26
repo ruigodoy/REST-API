@@ -13,4 +13,5 @@ public class AlunoDTO {
     private Long programa_id;
     private String name;
     private String classe;
+    private Integer active;
 }

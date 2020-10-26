@@ -9,11 +9,13 @@ import com.example.demo.repository.MentorRepository;
 import com.example.demo.repository.MentoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class MentoriaService {
 
     @Autowired
@@ -25,7 +27,7 @@ public class MentoriaService {
     @Autowired
     AlunoRepository alunoRepository;
 
-    public List<MentoriaDTO> getMentorias(){
+    public List<MentoriaDTO> getMentorias() {
         List<Mentoria> all = mentoriaRepository.findAll();
         List<MentoriaDTO> mentoriaDTOS = new ArrayList<>();
 
@@ -51,6 +53,14 @@ public class MentoriaService {
         mentoriaRepository.save(mentoria);
 
         return dto;
+    }
+
+    public void setActiveAluno(Integer active, Long id) {
+        mentoriaRepository.setActiveByAlunoId(active, id);
+    }
+
+    public void setActiveMentor(Integer active, Long id){
+        mentoriaRepository.setActiveByMentorId(active, id);
     }
 
 }

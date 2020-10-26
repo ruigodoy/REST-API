@@ -2,8 +2,17 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Mentoria;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MentoriaRepository extends JpaRepository<Mentoria, Long> {
+    @Modifying
+    @Query(value = "update mentoria set active = ?1 where aluno_id in (select id from aluno where id = ?2)", nativeQuery = true)
+    void setActiveByAlunoId(Integer active, Long id);
+
+    @Modifying
+    @Query(value = "update mentoria set active = ?1 where mentor_id in (select id from mentor where id = ?2)", nativeQuery = true)
+    void setActiveByMentorId(Integer active, Long id);
 }

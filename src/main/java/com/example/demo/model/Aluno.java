@@ -5,11 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Data
 
-public class Aluno  {
+public class Aluno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +20,11 @@ public class Aluno  {
 
     private String name;
     private String classe;
+
+    private Integer active;
+
+    public Aluno(){
+        this.active = 1;
+    }
 
 }

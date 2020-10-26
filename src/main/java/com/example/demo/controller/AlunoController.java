@@ -8,38 +8,46 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/aluno")
-public class AlunoController{
+public class AlunoController {
 
     @Autowired
     private AlunoService alunoService;
 
     @GetMapping
-    public List<AlunoDTO> getAlunos(){
-        return alunoService.getAlunos();
+    public List<Aluno> getAlunos() {
+        return alunoService.getActives();
+    }
+
+    @GetMapping("/inativos")
+    public List<Aluno> getAlunosInativos() {
+        return alunoService.getAlunosInativos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlunoDTO> getAluno(@PathVariable Long id){
-        return alunoService.getAlunoByIndex(id).map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+    public ResponseEntity<AlunoDTO> getAluno(@PathVariable Long id) {
+        return alunoService.getAlunoByIndex(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<AlunoDTO> criaAluno(@RequestBody AlunoDTO alunoDTO){
+    public ResponseEntity<AlunoDTO> criaAluno(@RequestBody AlunoDTO alunoDTO) {
         return alunoService.criaAluno(alunoDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping(value="/{id}")
-    public ResponseEntity<AlunoDTO> atualizarAluno(@PathVariable("id") Long id, @RequestBody AlunoDTO alunoDTO){
-        return ResponseEntity.ok().body(alunoService.atualizarAluno(id, alunoDTO));
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<AlunoDTO> atualizarAluno(@PathVariable("id") Long id, @RequestBody AlunoDTO alunoDTO) {
+        return alunoService.atualizarAluno(id, alunoDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(path={"/{id}"})
-    public ResponseEntity<Optional<Object>> deletarAluno(@PathVariable Long id){
-        return ResponseEntity.ok().body(alunoService.deletarAluno(id));
+    @PutMapping(value = "/ativar/{id}")
+    public ResponseEntity<AlunoDTO> ativarAluno(@PathVariable("id") Long id) {
+        return alunoService.ativarAluno(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping(path = {"/{id}"})
+    public ResponseEntity<AlunoDTO> deletarAluno(@PathVariable Long id) {
+        return alunoService.deletarAluno(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
