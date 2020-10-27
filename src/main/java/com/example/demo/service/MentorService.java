@@ -24,7 +24,7 @@ public class MentorService {
         return mentorRepository.findAll();
     }
 
-    public Optional<MentorDTO> getAlunoByIndex(Long id) {
+    public Optional<MentorDTO> getMentorByIndex(Long id) {
         return mentorRepository.findById(id).map(MentorMapper::toMentorDTO);
     }
 
