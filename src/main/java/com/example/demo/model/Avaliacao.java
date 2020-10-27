@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Data
 
-public class Nota {
+public class Avaliacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,10 +29,7 @@ public class Nota {
     @JoinColumn(name = "materia_id")
     private Materia materia;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mes_id")
-    private Mes mes;
-
     private Integer nota;
-    private Integer active;
+
+    private LocalDate data;
 }

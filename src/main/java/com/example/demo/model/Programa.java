@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +16,10 @@ public class Programa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer ano_inicio;
-    private Integer ano_fim;
+    @Column(name = "ano_inicio")
+    private Integer anoInicio;
+
+    @Column(name = "ano_fim")
+    private Integer anoFim;
     private String descricao;
 }

@@ -23,4 +23,6 @@ public class Mentoria {
     @ManyToOne
     @JoinColumn(name = "mentor_id")
     private Mentor mentor;
+
+    private Integer active;
 }

@@ -33,8 +33,7 @@ public class ProgramaService {
                 .collect(Collectors.toList());
     }
 
-
-    public ProgramaDTO criaPrograma(ProgramaDTO programaDTO) {
-        return ProgramaMapper.toProgramaDTO(programaRepository.save(ProgramaMapper.toPrograma(programaDTO)));
+    public Optional<ProgramaDTO> criaPrograma(ProgramaDTO programaDTO) {
+        return Optional.of(ProgramaMapper.toProgramaDTO(programaRepository.save(ProgramaMapper.toPrograma(programaDTO))));
     }
 }

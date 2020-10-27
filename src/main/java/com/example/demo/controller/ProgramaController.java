@@ -20,7 +20,7 @@ public class ProgramaController {
     }
 
     @PostMapping
-    public ResponseEntity<ProgramaDTO> criaPrograma(@RequestBody ProgramaDTO dto){
-        return ResponseEntity.ok().body(programaService.criaPrograma(dto));
+    public ResponseEntity<ProgramaDTO> criaPrograma(@RequestBody ProgramaDTO programaDTO){
+        return programaService.criaPrograma(programaDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

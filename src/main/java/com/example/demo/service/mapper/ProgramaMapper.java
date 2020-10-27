@@ -14,8 +14,8 @@ public class ProgramaMapper {
 
     public static ProgramaDTO toProgramaDTO(Programa programa) {
         return new ProgramaDTO(programa.getId(),
-                programa.getAno_inicio(),
-                programa.getAno_fim(),
+                programa.getAnoInicio(),
+                programa.getAnoFim(),
                 programa.getDescricao());
     }
 }

@@ -1,21 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.AlunoDTO;
-import com.example.demo.dto.MentorDTO;
 import com.example.demo.dto.MentoriaDTO;
-import com.example.demo.model.Aluno;
-import com.example.demo.model.Mentor;
 import com.example.demo.model.Mentoria;
-import com.example.demo.repository.AlunoRepository;
-import com.example.demo.repository.MentorRepository;
 import com.example.demo.repository.MentoriaRepository;
-import com.example.demo.service.mapper.AlunoMapper;
 import com.example.demo.service.mapper.MentoriaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +29,7 @@ public class MentoriaService {
     }
 
     public Optional<MentoriaDTO> criarMentoria(MentoriaDTO mentoriaDTO) {
-        if (alunoService.getAlunoByIndex(mentoriaDTO.getAluno_id()).isPresent() && mentorService.getMentorByIndex(mentoriaDTO.getMentor_id()).isPresent()) {
+        if (alunoService.getAlunoByIndex(mentoriaDTO.getAlunoId()).isPresent() && mentorService.getMentorByIndex(mentoriaDTO.getMentorID()).isPresent()) {
             return Optional.of(MentoriaMapper.toMentoriaDTO(mentoriaRepository.save(MentoriaMapper.toMentoria(mentoriaDTO))));
         }else{
             return Optional.empty();

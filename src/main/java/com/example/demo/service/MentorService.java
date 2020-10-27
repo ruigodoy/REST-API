@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.AlunoDTO;
 import com.example.demo.dto.MentorDTO;
 import com.example.demo.model.Mentor;
 import com.example.demo.repository.MentorRepository;
-import com.example.demo.service.mapper.AlunoMapper;
 import com.example.demo.service.mapper.MentorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

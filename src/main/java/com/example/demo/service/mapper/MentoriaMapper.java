@@ -12,10 +12,10 @@ public class MentoriaMapper {
         Aluno aluno = new Aluno();
         Mentor mentor = new Mentor();
 
-        aluno.setId(mentoriaDTO.getAluno_id());
-        mentor.setId(mentoriaDTO.getMentor_id());
+        aluno.setId(mentoriaDTO.getAlunoId());
+        mentor.setId(mentoriaDTO.getMentorID());
 
-        mentoria.setId(mentoriaDTO.getAluno_id());
+        mentoria.setId(mentoriaDTO.getAlunoId());
         mentoria.setAluno(aluno);
         mentoria.setMentor(mentor);
 
@@ -26,8 +26,8 @@ public class MentoriaMapper {
         MentoriaDTO mentoriaDTO = new MentoriaDTO();
 
         mentoriaDTO.setId(mentoria.getId());
-        mentoriaDTO.setAluno_id(mentoria.getAluno().getId());
-        mentoriaDTO.setMentor_id(mentoria.getMentor().getId());
+        mentoriaDTO.setAlunoId(mentoria.getAluno().getId());
+        mentoriaDTO.setMentorID(mentoria.getMentor().getId());
 
         return mentoriaDTO;
     }

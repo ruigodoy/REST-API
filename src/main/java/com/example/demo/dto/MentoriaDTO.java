@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 public class MentoriaDTO {
     private Long id;
-    private Long mentor_id;
-    private Long aluno_id;
+    private Long mentorID;
+    private Long alunoId;
+
+/*    private Long mentor_id;
+    private Long aluno_id;*/
 }
