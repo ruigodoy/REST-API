@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class ProgramaDTO {
     private Long id;
-    private Integer ano_inicio;
-    private Integer ano_fim;
+    private Integer anoInicio;
+    private Integer anoFim;
     private String descricao;
 }

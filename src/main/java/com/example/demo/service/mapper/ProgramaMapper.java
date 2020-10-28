@@ -7,8 +7,8 @@ public class ProgramaMapper {
 
     public static Programa toPrograma(ProgramaDTO programaDTO) {
         return new Programa(programaDTO.getId(),
-                programaDTO.getAno_inicio(),
-                programaDTO.getAno_fim(),
+                programaDTO.getAnoInicio(),
+                programaDTO.getAnoFim(),
                 programaDTO.getDescricao());
     }
 

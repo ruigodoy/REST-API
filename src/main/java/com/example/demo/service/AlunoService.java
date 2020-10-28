@@ -75,4 +75,8 @@ public class AlunoService {
             return Optional.empty();
         }
     }
+
+    public void setProgramaNull(Long id) {
+        alunoRepository.setProgramaNullAluno(id);
+    }
 }
