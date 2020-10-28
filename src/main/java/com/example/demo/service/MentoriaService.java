@@ -24,13 +24,49 @@ public class MentoriaService {
     @Autowired
     AlunoService alunoService;
 
-    public List<Mentoria> getMentorias() {
-        return mentoriaRepository.findAll();
+    public List<Mentoria> getMentoriasAtivas() {
+        return mentoriaRepository.findByActive(1);
+    }
+
+    public List<Mentoria> getMentoriasInativas(){
+        return mentoriaRepository.findByActive(0);
+    }
+
+    public Optional<MentoriaDTO> getMentoriaByIndex(Long id){
+        return mentoriaRepository.findById(id).map(MentoriaMapper::toMentoriaDTO);
     }
 
     public Optional<MentoriaDTO> criarMentoria(MentoriaDTO mentoriaDTO) {
-        if (alunoService.getAlunoByIndex(mentoriaDTO.getAlunoId()).isPresent() && mentorService.getMentorByIndex(mentoriaDTO.getMentorID()).isPresent()) {
+        if (alunoService.getAlunoByIndex(mentoriaDTO.getAlunoId()).isPresent() && mentorService.getMentorByIndex(mentoriaDTO.getMentorId()).isPresent()) {
             return Optional.of(MentoriaMapper.toMentoriaDTO(mentoriaRepository.save(MentoriaMapper.toMentoria(mentoriaDTO))));
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    public Optional<MentoriaDTO> atualizarMentoria(Long id, MentoriaDTO mentoriaDTO){
+        mentoriaDTO.setId(id);
+        //if(alunoService.getAlunoByIndex(id).isPresent()  && mentorService.getMentorByIndex(mentoriaDTO.getMentorId()).isPresent()){
+            return Optional.of(MentoriaMapper.toMentoriaDTO(mentoriaRepository.save(MentoriaMapper.toMentoria(mentoriaDTO))));
+        //}else
+            //return Optional.empty();
+    }
+
+    public Optional<MentoriaDTO> deletarMentoria(Long id){
+        Optional<Mentoria> mentoria = mentoriaRepository.findById(id);
+        if(mentoria.isPresent()){
+            mentoria.get().setActive(0);
+            return Optional.of(MentoriaMapper.toMentoriaDTO(mentoriaRepository.save(mentoria.get())));
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    public Optional<MentoriaDTO> ativarMentoria(Long id){
+        Optional<Mentoria> mentoria = mentoriaRepository.findById(id);
+        if(mentoria.isPresent()){
+            mentoria.get().setActive(1);
+            return Optional.of(MentoriaMapper.toMentoriaDTO(mentoriaRepository.save(mentoria.get())));
         }else{
             return Optional.empty();
         }

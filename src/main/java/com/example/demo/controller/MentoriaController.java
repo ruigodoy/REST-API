@@ -17,8 +17,18 @@ public class MentoriaController {
     MentoriaService mentoriaService;
 
     @GetMapping
-    public List<Mentoria> getAlunos(){
-        return mentoriaService.getMentorias();
+    public List<Mentoria> getMentoresAtivos(){
+        return mentoriaService.getMentoriasAtivas();
+    }
+
+    @GetMapping("/inativos")
+    public List<Mentoria> getMentoresInativos(){
+        return mentoriaService.getMentoriasInativas();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MentoriaDTO> getAluno(@PathVariable Long id) {
+        return mentoriaService.getMentoriaByIndex(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -26,18 +36,18 @@ public class MentoriaController {
         return mentoriaService.criarMentoria(mentoriaDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    /*@PostMapping
-    public ResponseEntity<AlunoDTO> criaAluno(@RequestBody AlunoDTO alunoDTO) {
-        return alunoService.criaAluno(alunoDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @PutMapping("/{id}")
+    public ResponseEntity<MentoriaDTO> atualizarMentor(@PathVariable("id") Long id, @RequestBody MentoriaDTO mentoriaDTO){
+        return mentoriaService.atualizarMentoria(id, mentoriaDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<AlunoDTO> atualizarAluno(@PathVariable("id") Long id, @RequestBody AlunoDTO alunoDTO) {
-        return alunoService.atualizarAluno(id, alunoDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-
-    @DeleteMapping(path = {"/{id}"})
-    public ResponseEntity<AlunoDTO> deletarAluno(@PathVariable Long id) {
-        return alunoService.deletarAluno(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @PutMapping(value = "/ativar/{id}")
+    public ResponseEntity<MentoriaDTO> ativarAluno(@PathVariable("id") Long id) {
+        return mentoriaService.ativarMentoria(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    }*/
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MentoriaDTO> deletarAluno(@PathVariable Long id){
+        return mentoriaService.deletarMentoria(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }

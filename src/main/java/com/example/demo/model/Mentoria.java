@@ -2,12 +2,10 @@ package com.example.demo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Data
 
@@ -25,4 +23,8 @@ public class Mentoria {
     private Mentor mentor;
 
     private Integer active;
+
+    public Mentoria(){
+        this.active = 1;
+    }
 }
