@@ -18,8 +18,15 @@ public class MentorService {
     @Autowired
     MentorRepository mentorRepository;
 
-    public List<Mentor> getMentores(){
-        return mentorRepository.findAll();
+    @Autowired
+    MentoriaService mentoriaService;
+
+    public List<Mentor> getMentoresAtivos(){
+        return mentorRepository.findByActive(1);
+    }
+
+    public List<Mentor> getMentoresInativos(){
+        return mentorRepository.findByActive(0);
     }
 
     public Optional<MentorDTO> getMentorByIndex(Long id) {
@@ -34,18 +41,33 @@ public class MentorService {
         }
     }
 
-    public Optional<Mentor> atualizarMentor(Long id, Mentor mentor){
-        return mentorRepository.findById(id).map(mentorBack -> {
-            mentorBack.setName(mentor.getName());
-            mentorBack.setCity(mentor.getCity());
-            return mentorRepository.save(mentorBack);
-        });
+    public Optional<MentorDTO> atualizarMentor(Long id, MentorDTO mentorDTO){
+        mentorDTO.setId(id);
+        if(getMentorByIndex(id).isPresent()){
+            return Optional.of(MentorMapper.toMentorDTO(mentorRepository.save(MentorMapper.toMentor(mentorDTO))));
+        }else
+            return Optional.empty();
     }
 
-    public Optional<Object> deletarMentor(Long id){
-        return mentorRepository.findById(id).map(mentorDelete -> {
-            mentorRepository.deleteById(id);
-            return mentorDelete;
-        });
+    public Optional<MentorDTO> deletarMentor(Long id){
+        Optional<Mentor> mentor = mentorRepository.findById(id);
+        if(mentor.isPresent()){
+            mentor.get().setActive(0);
+            mentoriaService.setActiveMentor(0, id);
+            return Optional.of(MentorMapper.toMentorDTO(mentorRepository.save(mentor.get())));
+        }else{
+            return Optional.empty();
+        }
+    }
+
+    public Optional<MentorDTO> ativarMentor(Long id){
+        Optional<Mentor> mentor = mentorRepository.findById(id);
+        if(mentor.isPresent()){
+            mentor.get().setActive(1);
+            mentoriaService.setActiveMentor(1, id);
+            return Optional.of(MentorMapper.toMentorDTO(mentorRepository.save(mentor.get())));
+        }else{
+            return Optional.empty();
+        }
     }
 }

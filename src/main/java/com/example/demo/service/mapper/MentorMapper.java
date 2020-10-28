@@ -5,10 +5,22 @@ import com.example.demo.model.Mentor;
 
 public class MentorMapper {
     public static Mentor toMentor(MentorDTO mentorDTO) {
-        return new Mentor(mentorDTO.getId(), mentorDTO.getName(), mentorDTO.getCity());
+        Mentor mentor = new Mentor();
+
+        mentor.setId(mentorDTO.getId());
+        mentor.setName(mentorDTO.getName());
+        mentor.setCity(mentorDTO.getCity());
+
+        return mentor;
     }
 
     public static MentorDTO toMentorDTO(Mentor mentor){
-        return new MentorDTO(mentor.getId(), mentor.getName(), mentor.getCity());
+        MentorDTO mentorDTO = new MentorDTO();
+
+        mentorDTO.setId(mentor.getId());
+        mentorDTO.setName(mentor.getName());
+        mentorDTO.setCity(mentor.getCity());
+
+        return mentorDTO;
     }
 }

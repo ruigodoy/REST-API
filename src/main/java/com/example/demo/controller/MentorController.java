@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/mentor")
@@ -18,8 +17,18 @@ public class MentorController {
     MentorService mentorService;
 
     @GetMapping
-    public List<Mentor> getMentores(){
-        return mentorService.getMentores();
+    public List<Mentor> getMentoresAtivos(){
+        return mentorService.getMentoresAtivos();
+    }
+
+    @GetMapping("/inativos")
+    public List<Mentor> getMentoresInativos(){
+        return mentorService.getMentoresInativos();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MentorDTO> getAluno(@PathVariable Long id) {
+        return mentorService.getMentorByIndex(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -28,12 +37,17 @@ public class MentorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Mentor>> atualizarMentor(@PathVariable("id") Long id, @RequestBody Mentor mentor){
-        return ResponseEntity.ok().body(mentorService.atualizarMentor(id, mentor));
+    public ResponseEntity<MentorDTO> atualizarMentor(@PathVariable("id") Long id, @RequestBody MentorDTO mentorDTO){
+        return mentorService.atualizarMentor(id, mentorDTO).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping(value = "/ativar/{id}")
+    public ResponseEntity<MentorDTO> ativarAluno(@PathVariable("id") Long id) {
+        return mentorService.ativarMentor(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Optional<Object>> deletarAluno(@PathVariable Long id){
-        return ResponseEntity.ok().body(mentorService.deletarMentor(id));
+    public ResponseEntity<MentorDTO> deletarAluno(@PathVariable Long id){
+        return mentorService.deletarMentor(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Data
 
@@ -17,4 +16,9 @@ public class Mentor {
 
     private String name;
     private String city;
+    private Integer active;
+
+    public Mentor(){
+        this.active = 1;
+    }
 }
