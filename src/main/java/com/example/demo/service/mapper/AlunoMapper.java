@@ -12,10 +12,9 @@ public class AlunoMapper {
         aluno.setId(alunoDTO.getId());
         aluno.setClasse(alunoDTO.getClasse());
         aluno.setName(alunoDTO.getName());
-        //aluno.setActive(alunoDTO.getActive());
-        if (alunoDTO.getPrograma_id() != null) {
+        if (alunoDTO.getProgramaId() != null) {
             Programa programa = new Programa();
-            programa.setId(alunoDTO.getPrograma_id());
+            programa.setId(alunoDTO.getProgramaId());
             aluno.setPrograma(programa);
         } else
             aluno.setPrograma(null);
@@ -29,11 +28,10 @@ public class AlunoMapper {
         alunoDTO.setClasse(aluno.getClasse());
         alunoDTO.setName(aluno.getName());
         alunoDTO.setId(aluno.getId());
-        //alunoDTO.setActive(aluno.getActive());
         if (aluno.getPrograma() != null) {
-            alunoDTO.setPrograma_id(aluno.getPrograma().getId());
+            alunoDTO.setProgramaId(aluno.getPrograma().getId());
         } else
-            alunoDTO.setPrograma_id(null);
+            alunoDTO.setProgramaId(null);
 
         return alunoDTO;
     }

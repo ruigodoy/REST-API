@@ -12,7 +12,4 @@ public class MentoriaDTO {
     private Long id;
     private Long mentorId;
     private Long alunoId;
-
-/*    private Long mentor_id;
-    private Long aluno_id;*/
 }

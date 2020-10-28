@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class AlunoDTO {
     private Long id;
-    private Long programa_id;
+    private Long programaId;
     private String name;
     private String classe;
-    //private Integer active;
 }
