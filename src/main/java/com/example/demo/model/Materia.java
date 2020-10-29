@@ -20,4 +20,11 @@ public class Materia {
     public Long id;
 
     public String nome;
+    public Integer active;
+
+    public Materia(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+        this.active = 1;
+    }
 }

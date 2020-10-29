@@ -26,5 +26,9 @@ public class Aluno {
     public Aluno(){
         this.active = 1;
     }
+    public Aluno(String name, String classe){
+        this.name = name;
+        this.classe = classe;
+    }
 
 }

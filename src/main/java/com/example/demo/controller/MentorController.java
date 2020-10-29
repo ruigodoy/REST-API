@@ -42,12 +42,12 @@ public class MentorController {
     }
 
     @PutMapping(value = "/ativar/{id}")
-    public ResponseEntity<MentorDTO> ativarAluno(@PathVariable("id") Long id) {
+    public ResponseEntity<MentorDTO> ativarMentor(@PathVariable("id") Long id) {
         return mentorService.ativarMentor(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MentorDTO> deletarAluno(@PathVariable Long id){
+    public ResponseEntity<MentorDTO> deletarMentor(@PathVariable Long id){
         return mentorService.deletarMentor(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
